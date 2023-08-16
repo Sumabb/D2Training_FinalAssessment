@@ -3,12 +3,10 @@ import React, { FC, useMemo,useState,useEffect } from 'react';
 import { MaterialReactTable, type MRT_ColumnDef } from 'material-react-table';
 import { Box, Typography } from '@mui/material';
 import { RouteComponentProps } from "react-router-dom";
-import { DataGrid } from '@mui/x-data-grid';
 import { Button } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
-import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
@@ -237,7 +235,7 @@ setuserCourseList(userCourseList);
           <div>
       {row.dueDate && <Typography>Due Date: {row.dueDate}</Typography>}
     </div>
-    {!row.dueDate && row.status != 'completed' &&
+    {!row.dueDate && row.status != 'Completed' &&
           <button style={{width:'50%',marginTop:'5%'}}
           onClick={() => handleDueDate(row.sap_id, rowData.row.original.id)}>
           Add Due date

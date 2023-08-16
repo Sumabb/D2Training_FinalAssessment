@@ -3,29 +3,21 @@ import { RouteComponentProps } from "react-router-dom";
 import "./home.css";
 
 import { Link } from "react-router-dom";
-import { DataGrid, GridColDef, GridValueGetterParams,GridRowParams } from '@mui/x-data-grid';
+import { DataGrid } from '@mui/x-data-grid';
 import {
   MaterialReactTable,
-  type MRT_ExpandedState,
   type MRT_ColumnDef,
 } from 'material-react-table';
 import { Button } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
-import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import { Box, Typography } from '@mui/material';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-
 import { ToastContainer, toast, Flip } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
-
-import { Moment } from 'moment'
 let moment = require('moment');
 
 
@@ -271,7 +263,12 @@ const Home: FC<SomeComponentProps> = ({ history }) => {
             let dateOne = moment(data.dueDate);
             let dateTwo = moment(currentDate);
             let result = dateOne.diff(dateTwo, 'days')+' '+'days'
-            element.courseStatus = data.status
+            if( data.status){
+              element.courseStatus = data.status
+            }else{
+              element.courseStatus = 'Pending'
+            }
+           
             element.due = result
          }
       })
@@ -307,7 +304,7 @@ const Home: FC<SomeComponentProps> = ({ history }) => {
           if(element.id === ids){
             element.user_list.forEach((user:any) => {
               if(user.sap_id == userInfo.sap_id){
-                user.status = 'completed';
+                user.status = 'Completed';
               }
             });
           }
@@ -440,7 +437,7 @@ const Home: FC<SomeComponentProps> = ({ history }) => {
               color:'blueviolet'
             }}
             > Course Information
-             { rowData.row.original.courseStatus != 'completed'  && <button value={rowData.row.original.id} onClick={() => handleCourseCompleteStatus(rowData.row.original.id)}
+             { rowData.row.original.courseStatus != 'Completed'  && <button value={rowData.row.original.id} onClick={() => handleCourseCompleteStatus(rowData.row.original.id)}
               style={{
                 marginLeft: '45%',
                 backgroundColor: 'blue',
